@@ -1,26 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import ChartComponent from "./components/ChartComponent";
+import CalendarComponent from "./components/Calendar";
+import HeaderComponent from "./components/Header";
+import ErrorPage from "./components/ErrorPage";
+import { useMediaQuery } from "@uidotdev/usehooks";
+import { Layout } from "antd";
+import styles from "./app.module.scss";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+const { Header } = Layout;
+
+const App = () => {
+  const chartData = {
+    labels: ["Label 1", "Label 2", "Label 3", "Label 4"],
+    datasets: [
+      {
+        label: "Dataset 1",
+        data: [10, 20, 30, 25],
+        backgroundColor: ["red", "green", "blue", "pink"],
+      },
+    ],
+  };
+  const isMobile = useMediaQuery("only screen and (max-width : 768px)");
+
+  const isDesktop = useMediaQuery(
+    "only screen and (min-width : 769px) and (max-width : 1200px)"
   );
-}
+
+  return (
+    <Router>
+      <Layout
+        style={{
+          width: isMobile ? 350 : 800,
+        }}
+        className={styles.layout}
+      >
+        <Header style={{ display: "flex", alignItems: "center" }}>
+          <HeaderComponent />
+        </Header>
+
+        <main className={styles.main}>
+          <Routes>
+            <Route
+              element={<ChartComponent data={chartData} />}
+              path="/diagram"
+            />
+            <Route element={<CalendarComponent />} path="/" />
+            <Route element={<ErrorPage />} path="*" />
+          </Routes>
+        </main>
+      </Layout>
+    </Router>
+  );
+};
 
 export default App;
