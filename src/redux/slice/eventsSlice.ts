@@ -1,5 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IState } from "../types";
+import { Dayjs } from "dayjs";
+import { v4 as uuidv4 } from "uuid";
 
 const initialState: IState[] = [];
 
@@ -7,14 +9,13 @@ export const eventsSlice = createSlice({
   name: "event",
   initialState,
   reducers: {
-    setEvents: (state: IState[], value: { payload: string }) => {
-      console.log(value);
+    setEvents: (state: IState[], action: PayloadAction<Dayjs>) => {
       state.push({
-        date: "31-12-2023",
+        date: action.payload,
         listData: [
-          { type: "warning", content: "This is warning event." },
-          { type: "success", content: "This is usual event." },
-          { type: "error", content: "This is error event." },
+          { type: "warning", content: "This is warning event.", id: uuidv4() },
+          { type: "success", content: "This is usual event.", id: uuidv4() },
+          { type: "error", content: "This is error event.", id: uuidv4() },
         ],
       });
     },

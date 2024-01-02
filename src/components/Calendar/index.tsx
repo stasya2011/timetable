@@ -1,66 +1,45 @@
 import { Badge, BadgeProps, Calendar, CalendarProps } from "antd";
-import { Dayjs } from "dayjs";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import dayjs, { Dayjs } from "dayjs";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { setEvents } from "../../redux/slice/eventsSlice";
+import { IListData, IState } from "../../redux/types";
 
 const CalendarComponent = () => {
+  const currentDate = dayjs();
+  const [selectedData, setSelectedData] = useState<Dayjs>(currentDate);
   const dispatch = useDispatch();
-  const a = async () => {
-    const t = await dispatch(setEvents("111"));
-    console.log("+++++++", t);
-  };
-
+  const events = useSelector((state: { events: IState[] }) => state.events);
   useEffect(() => {
-    a();
+    dispatch(setEvents(selectedData));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getListData = (value: Dayjs) => {
-    // console.log("date", `${value.date()}-${value.month() + 1}-${value.year()}`);
-    let listData;
-    switch (value.date()) {
-      case 8:
-        listData = [
-          { type: "warning", content: "This is warning event." },
-          { type: "success", content: "This is usual event." },
-        ];
-        break;
-      case 10:
-        listData = [
-          { type: "warning", content: "This is warning event." },
-          { type: "success", content: "This is usual event." },
-          { type: "error", content: "This is error event." },
-        ];
-        break;
-      case 15:
-        listData = [
-          { type: "warning", content: "This is warning event" },
-          { type: "success", content: "This is very long usual event......" },
-          { type: "error", content: "This is error event 1." },
-          { type: "error", content: "This is error event 2." },
-          { type: "error", content: "This is error event 3." },
-          { type: "error", content: "This is error event 4." },
-        ];
-        break;
-      default:
-    }
-    return listData || [];
-  };
+  useEffect(() => {
+    console.log("selected Data", selectedData);
+    console.log("state", events);
+  });
 
   const dateCellRender = (value: Dayjs) => {
-    const listData = getListData(value);
-
     return (
-      <ul>
-        {listData.map((item) => (
-          <li key={item.content}>
-            <Badge
-              status={item.type as BadgeProps["status"]}
-              text={item.content}
-            />
-          </li>
-        ))}
-      </ul>
+      <>
+        {events.map((event) =>
+          event.date.date() === value.date() &&
+          event.date.month() === value.month() &&
+          event.date.year() === value.year() ? (
+            <ul>
+              {event.listData.map((item: IListData) => (
+                <li key={item.id}>
+                  <Badge
+                    status={item.type as BadgeProps["status"]}
+                    text={item.content}
+                  />
+                </li>
+              ))}
+            </ul>
+          ) : null
+        )}
+      </>
     );
   };
 
@@ -71,7 +50,7 @@ const CalendarComponent = () => {
 
   return (
     <Calendar
-      onSelect={(value: Dayjs, selectInfo: any) => console.log(value)}
+      onSelect={(value: Dayjs) => setSelectedData(value)}
       cellRender={cellRender}
     />
   );
