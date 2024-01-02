@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setEvents } from "../../redux/slice/eventsSlice";
 import { IListData, IState } from "../../redux/types";
+import styles from "./calendar.module.scss";
 
 const CalendarComponent = () => {
   const currentDate = dayjs();
@@ -27,7 +28,7 @@ const CalendarComponent = () => {
           event.date.date() === value.date() &&
           event.date.month() === value.month() &&
           event.date.year() === value.year() ? (
-            <ul>
+            <ul className={styles["listOfEvents"]}>
               {event.listData.map((item: IListData) => (
                 <li key={item.id}>
                   <Badge
