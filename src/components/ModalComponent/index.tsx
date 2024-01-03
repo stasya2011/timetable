@@ -1,11 +1,9 @@
-import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Button, Modal } from "antd";
-import { RootState, useAppDispatch } from "../../redux/store";
+import { Modal } from "antd";
+import { RootState } from "../../redux/store";
 import TaskList from "../TaskList";
 import { formatDate } from "../../utils";
-import { setInput } from "../../redux/slice/selectSlice";
-import styles from "./modalComponent.module.scss";
+import TaskInputForm from "../TaskInputForm";
 
 const ModalComponent = ({
   isOpen = false,
@@ -16,30 +14,11 @@ const ModalComponent = ({
   onOk: () => void;
   onCancel: () => void;
 }) => {
-  const [inputValue, setInputValue] = useState<string>("");
   const { events, selectedDate } = useSelector((state: RootState) => state);
-  const dispatch = useAppDispatch();
-  const setValue = () => {
-    dispatch(setInput(inputValue));
-    setInputValue("");
-  };
 
   return (
     <Modal open={isOpen} onOk={onOk} onCancel={onCancel}>
-      <div className={styles.wrapper}>
-        <div>
-          <input
-            type="text"
-            placeholder="Add event."
-            value={inputValue}
-            onChange={(e) => setInputValue(() => e.target.value)}
-          />
-          <Button onClick={setValue}>Add</Button>
-        </div>
-        <div className={styles.date}>
-          {formatDate(selectedDate.selectedDate)}
-        </div>
-      </div>
+      <TaskInputForm />
 
       <>
         {events.map((event) => {

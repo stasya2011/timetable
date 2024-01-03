@@ -17,14 +17,16 @@ const CalendarPage = () => {
   };
 
   const handleOk = () => {
-    setIsModalOpen(false);
-    dispatch(
-      addNewDateAndEvent({
-        input: selectedDate.input,
-        date: selectedDate.selectedDate,
-      })
-    );
+    if (selectedDate.input) {
+      dispatch(
+        addNewDateAndEvent({
+          input: selectedDate.input,
+          date: selectedDate.selectedDate,
+        })
+      );
+    }
     dispatch(setSelectedDate(selectedDate.selectedDate));
+    setIsModalOpen(false);
   };
 
   const handleCancel = () => {
