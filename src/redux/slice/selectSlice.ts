@@ -11,16 +11,16 @@ export const selectedDateSlice = createSlice({
   name: "selectedSlice",
   initialState: currentDate,
   reducers: {
-    setSelectedDate: (
-      state: ISelectedDate,
-      action: PayloadAction<{ date: Dayjs; input: string }>
-    ) => {
-      state.selectedDate = action.payload.date;
-      state.input = action.payload.input;
+    setSelectedDate: (state: ISelectedDate, action: PayloadAction<Dayjs>) => {
+      state.selectedDate = action.payload;
+    },
+
+    setInput: (state: ISelectedDate, action: PayloadAction<string>) => {
+      state.input = action.payload;
     },
   },
 });
 
 const { actions, reducer } = selectedDateSlice;
-export const { setSelectedDate } = actions;
+export const { setSelectedDate, setInput } = actions;
 export default reducer;

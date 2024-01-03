@@ -7,6 +7,7 @@ export interface IListData {
 }
 
 export interface IState {
+  eventId: string;
   date: Dayjs;
   listData: IListData[];
 }

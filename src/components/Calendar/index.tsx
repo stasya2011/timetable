@@ -1,19 +1,21 @@
 import { Calendar, CalendarProps } from "antd";
 import dayjs, { Dayjs } from "dayjs";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { setEvents } from "../../redux/slice/eventsSlice";
 import { RootState, useAppDispatch } from "../../redux/store";
 import TaskList from "../TaskList";
+import { setSelectedDate } from "../../redux/slice/selectSlice";
+import { formatDate } from "../../utils";
 
 const CalendarComponent = () => {
   const currentDate = dayjs();
-  const [selectedData, setSelectedData] = useState<Dayjs>(currentDate);
   const dispatch = useAppDispatch();
-  const events = useSelector((state: RootState) => state.events);
+  const { events } = useSelector((state: RootState) => state);
 
   useEffect(() => {
-    dispatch(setEvents(selectedData));
+    const a = dispatch(setSelectedDate(currentDate));
+    dispatch(setEvents(a.payload));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -21,10 +23,8 @@ const CalendarComponent = () => {
     return (
       <>
         {events.map((event) =>
-          event.date.date() === value.date() &&
-          event.date.month() === value.month() &&
-          event.date.year() === value.year() ? (
-            <TaskList event={event} />
+          formatDate(event.date) === formatDate(value) ? (
+            <TaskList event={event} key={event.date.millisecond()} />
           ) : null
         )}
       </>
@@ -38,7 +38,7 @@ const CalendarComponent = () => {
 
   return (
     <Calendar
-      onSelect={(value: Dayjs) => setSelectedData(value)}
+      onSelect={(value: Dayjs) => dispatch(setSelectedDate(value))}
       cellRender={cellRender}
     />
   );
