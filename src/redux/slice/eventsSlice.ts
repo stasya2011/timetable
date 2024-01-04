@@ -10,18 +10,17 @@ export const eventsSlice = createSlice({
   name: "event",
   initialState,
   reducers: {
-    setEvents: (state: IState[], action: PayloadAction<Dayjs>) => {
-      const eventId = formatDate(action.payload);
-      state.push({
-        eventId,
-        date: action.payload,
-        listData: [
-          { type: "warning", content: "This is warning event.", id: uuidv4() },
-          { type: "success", content: "This is usual event.", id: uuidv4() },
-          { type: "error", content: "This is error event.", id: uuidv4() },
-        ],
-      });
+    initializeInitialValues: (state: IState[]) => {
+      const localStorageData = localStorage.getItem("events");
+      const parsedData = localStorageData ? JSON.parse(localStorageData) : null;
+
+      if (parsedData) {
+        state = parsedData;
+      }
+
+      console.log("+++ ////// state 2222222222 +++", state);
     },
+
     addNewDateAndEvent: (
       state: IState[],
       action: PayloadAction<{ date: Dayjs; input: string }>
@@ -38,7 +37,6 @@ export const eventsSlice = createSlice({
           },
         ],
       };
-
       state.push(listDateItem);
     },
 
@@ -64,6 +62,9 @@ export const eventsSlice = createSlice({
 });
 
 const { actions, reducer } = eventsSlice;
-export const { setEvents, addNewDateAndEvent, updateEventForExistingDate } =
-  actions;
+export const {
+  initializeInitialValues,
+  addNewDateAndEvent,
+  updateEventForExistingDate,
+} = actions;
 export default reducer;
