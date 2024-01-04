@@ -23,10 +23,10 @@ const ModalComponent = ({
 
       <>
         {events.map((event) => {
-          console.log("+++ / event / +++", event.eventId);
           if (event.eventId === formatDate(selectedDate.selectedDate)) {
             return <TaskList event={event} key={event.date.millisecond()} />;
           }
+          return null;
         })}
       </>
     </Modal>

@@ -24,70 +24,46 @@ export const eventsSlice = createSlice({
     },
     addNewDateAndEvent: (
       state: IState[],
-      action: PayloadAction<{ input: string; eventId: string }>
-    ) => {
-      const index = state.find(
-        (event) => event.eventId === action.payload.eventId
-      );
-
-      const id = uuidv4();
-
-      const listDateItem = {
-        type: "success",
-        content: action.payload.input,
-        id,
-      };
-
-      // state.push({
-      //   eventId: action.payload.date.format("DD-MM-YYYY"),
-      //   date: action.payload.date,
-      //   listData: [listDateItem],
-      // });
-
-      if (index) {
-        index.listData.push(listDateItem);
-      }
-
-      //   state: IState[],
-      //   action: PayloadAction<{ date: Dayjs; input: string }>
-      // ) => {
-      // const id = uuidv4();
-
-      // const listDateItem = {
-      //   type: "success",
-      //   content: action.payload.input,
-      //   id,
-      // };
-
-      // state.push({
-      //   eventId: action.payload.date.format("DD-MM-YYYY"),
-      //   date: action.payload.date,
-      //   listData: [listDateItem],
-      // });
-    },
-
-    updateEventForexistingDate: (
-      state: IState[],
       action: PayloadAction<{ date: Dayjs; input: string }>
     ) => {
       const id = uuidv4();
-
-      const listDateItem = {
-        type: "success",
-        content: action.payload.input,
-        id,
-      };
-
-      state.push({
+      const listDateItem: IState = {
         eventId: action.payload.date.format("DD-MM-YYYY"),
         date: action.payload.date,
-        listData: [listDateItem],
-      });
+        listData: [
+          {
+            type: "success",
+            content: action.payload.input,
+            id,
+          },
+        ],
+      };
+
+      state.push(listDateItem);
+    },
+
+    updateEventForExistingDate: (
+      state: IState[],
+      action: PayloadAction<{ eventId: string; input: string }>
+    ) => {
+      const id = uuidv4();
+      const index = state.findIndex(
+        (event) => event.eventId === action.payload.eventId
+      );
+      if (index > -1) {
+        const listDateItem = {
+          type: "success",
+          content: action.payload.input,
+          id,
+        };
+
+        state[index].listData.push(listDateItem);
+      }
     },
   },
 });
 
 const { actions, reducer } = eventsSlice;
-export const { setEvents, addNewDateAndEvent, updateEventForexistingDate } =
+export const { setEvents, addNewDateAndEvent, updateEventForExistingDate } =
   actions;
 export default reducer;
