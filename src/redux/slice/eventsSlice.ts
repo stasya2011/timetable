@@ -1,8 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IState } from "../types";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { v4 as uuidv4 } from "uuid";
-import { formatDate } from "../../utils";
 
 const initialState: IState[] = [];
 
@@ -12,13 +11,15 @@ export const eventsSlice = createSlice({
   reducers: {
     initializeInitialValues: (state: IState[]) => {
       const localStorageData = localStorage.getItem("events");
-      const parsedData = localStorageData ? JSON.parse(localStorageData) : null;
 
-      if (parsedData) {
-        state = parsedData;
+      if (localStorageData) {
+        const a = JSON.parse(localStorageData);
+        a.forEach((element: IState) => {
+          return (element.date = dayjs(element.date));
+        });
+        return a;
       }
-
-      console.log("+++ ////// state 2222222222 +++", state);
+      return state;
     },
 
     addNewDateAndEvent: (

@@ -5,22 +5,11 @@ import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../redux/store";
 import { setSelectedDate } from "../../redux/slice/selectSlice";
 import { formatDate } from "../../utils";
-import { IState } from "../../redux/types";
-import { initializeInitialValues } from "../../redux/slice/eventsSlice";
 import TaskList from "../TaskList";
 
 const CalendarComponent = () => {
   const dispatch = useAppDispatch();
   const { events } = useSelector((state: RootState) => state);
-
-  useEffect(() => {
-    const initialState = localStorage.getItem("events");
-    if (initialState) {
-      const parsedInitialState: IState[] = JSON.parse(initialState);
-      console.log("+++", parsedInitialState);
-      dispatch(initializeInitialValues());
-    }
-  }, []);
 
   useEffect(() => {
     return () => {

@@ -1,10 +1,9 @@
-// import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-// import { useAppDispatch } from "../../redux/store";
-// import { IState } from "../../redux/types";
-// import { initializeInitialValues } from "../../redux/slice/eventsSlice";
+import { useEffect } from "react";
+import { useAppDispatch } from "../../redux/store";
+import { initializeInitialValues } from "../../redux/slice/eventsSlice";
 import ChartComponent from "../ChartComponent";
-import CalendarPage from "../CalendarPage.tsx";
+import CalendarPage from "../CalendarPage";
 import ErrorPage from "../ErrorPage";
 import styles from "./mainPage.module.scss";
 
@@ -19,15 +18,11 @@ const chartData = {
   ],
 };
 const MainPage = () => {
-  // const dispatch = useAppDispatch();
-  // useEffect(() => {
-  //   const initialState = localStorage.getItem("events");
-  //   if (initialState) {
-  //     const parsedInitialState: IState[] = JSON.parse(initialState);
-  //     console.log("+++", parsedInitialState);
-  //     dispatch(initializeInitialValues());
-  //   }
-  // }, []);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(initializeInitialValues());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <main className={styles.main}>
