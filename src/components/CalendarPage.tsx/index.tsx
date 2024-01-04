@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Button } from "antd";
-import ModalComponent from "../ModalComponent";
-import CalendarComponent from "../Calendar";
 import { useSelector } from "react-redux";
+import { Button } from "antd";
 import { RootState, useAppDispatch } from "../../redux/store";
 import { setSelectedDate } from "../../redux/slice/selectSlice";
 import { addNewDateAndEvent } from "../../redux/slice/eventsSlice";
+import ModalComponent from "../ModalComponent";
+import CalendarComponent from "../Calendar";
 
 const CalendarPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,15 +17,15 @@ const CalendarPage = () => {
   };
 
   const handleOk = () => {
-    if (selectedDate.input) {
-      dispatch(
-        addNewDateAndEvent({
-          input: selectedDate.input,
-          date: selectedDate.selectedDate,
-        })
-      );
-    }
-    dispatch(setSelectedDate(selectedDate.selectedDate));
+    // if (selectedDate.input) {
+    //   dispatch(
+    //     addNewDateAndEvent({
+    //       input: selectedDate.input,
+    //       date: selectedDate.selectedDate,
+    //     })
+    //   );
+    // }
+    // dispatch(setSelectedDate(selectedDate.selectedDate));
     setIsModalOpen(false);
   };
 

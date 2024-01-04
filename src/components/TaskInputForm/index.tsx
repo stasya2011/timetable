@@ -3,15 +3,44 @@ import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../redux/store";
 import { Button } from "antd";
 import { formatDate } from "../../utils";
-import { setInput } from "../../redux/slice/selectSlice";
+import { setInput, setSelectedDate } from "../../redux/slice/selectSlice";
 import styles from "./taskInputForm.module.scss";
+import {
+  addNewDateAndEvent,
+  updateEventForexistingDate,
+} from "../../redux/slice/eventsSlice";
 
 const TaskInputForm = () => {
   const [inputValue, setInputValue] = useState<string>("");
-  const { selectedDate } = useSelector((state: RootState) => state);
+  const { selectedDate, events } = useSelector((state: RootState) => state);
   const dispatch = useAppDispatch();
+
   const setValue = () => {
     dispatch(setInput(inputValue));
+
+    console.log("events", events);
+    const aaa = events.find(
+      (event) => event.eventId === formatDate(selectedDate.selectedDate)
+    );
+    if (aaa) {
+      console.log("+++ this ID has alredy existed in `events`", aaa);
+      dispatch(
+        addNewDateAndEvent({
+          input: inputValue,
+          eventId: aaa.eventId,
+        })
+      );
+    } else {
+      console.log("+++ this ID has NOT existed in `events` yet.", aaa);
+      dispatch(
+        updateEventForexistingDate({
+          input: inputValue,
+          date: selectedDate.selectedDate,
+        })
+      );
+    }
+
+    // dispatch(setSelectedDate(selectedDate.selectedDate));
     setInputValue("");
   };
 

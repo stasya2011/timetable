@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Modal } from "antd";
 import { RootState } from "../../redux/store";
-import TaskList from "../TaskList";
 import { formatDate } from "../../utils";
+import TaskList from "../TaskList";
 import TaskInputForm from "../TaskInputForm";
 
 const ModalComponent = ({
@@ -22,12 +23,9 @@ const ModalComponent = ({
 
       <>
         {events.map((event) => {
-          if (
-            formatDate(event.date) === formatDate(selectedDate.selectedDate)
-          ) {
+          console.log("+++ / event / +++", event.eventId);
+          if (event.eventId === formatDate(selectedDate.selectedDate)) {
             return <TaskList event={event} key={event.date.millisecond()} />;
-          } else {
-            return null;
           }
         })}
       </>

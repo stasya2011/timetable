@@ -24,6 +24,50 @@ export const eventsSlice = createSlice({
     },
     addNewDateAndEvent: (
       state: IState[],
+      action: PayloadAction<{ input: string; eventId: string }>
+    ) => {
+      const index = state.find(
+        (event) => event.eventId === action.payload.eventId
+      );
+
+      const id = uuidv4();
+
+      const listDateItem = {
+        type: "success",
+        content: action.payload.input,
+        id,
+      };
+
+      // state.push({
+      //   eventId: action.payload.date.format("DD-MM-YYYY"),
+      //   date: action.payload.date,
+      //   listData: [listDateItem],
+      // });
+
+      if (index) {
+        index.listData.push(listDateItem);
+      }
+
+      //   state: IState[],
+      //   action: PayloadAction<{ date: Dayjs; input: string }>
+      // ) => {
+      // const id = uuidv4();
+
+      // const listDateItem = {
+      //   type: "success",
+      //   content: action.payload.input,
+      //   id,
+      // };
+
+      // state.push({
+      //   eventId: action.payload.date.format("DD-MM-YYYY"),
+      //   date: action.payload.date,
+      //   listData: [listDateItem],
+      // });
+    },
+
+    updateEventForexistingDate: (
+      state: IState[],
       action: PayloadAction<{ date: Dayjs; input: string }>
     ) => {
       const id = uuidv4();
@@ -44,5 +88,6 @@ export const eventsSlice = createSlice({
 });
 
 const { actions, reducer } = eventsSlice;
-export const { setEvents, addNewDateAndEvent } = actions;
+export const { setEvents, addNewDateAndEvent, updateEventForexistingDate } =
+  actions;
 export default reducer;

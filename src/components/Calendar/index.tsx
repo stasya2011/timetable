@@ -4,9 +4,9 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { setEvents } from "../../redux/slice/eventsSlice";
 import { RootState, useAppDispatch } from "../../redux/store";
-import TaskList from "../TaskList";
 import { setSelectedDate } from "../../redux/slice/selectSlice";
 import { formatDate } from "../../utils";
+import TaskList from "../TaskList";
 
 const CalendarComponent = () => {
   const currentDate = dayjs();
