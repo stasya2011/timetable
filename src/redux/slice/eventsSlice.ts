@@ -11,13 +11,15 @@ export const eventsSlice = createSlice({
   reducers: {
     initializeInitialValues: (state: IState[]) => {
       const localStorageData = localStorage.getItem("events");
+      const updatedStateByLocalStore = localStorageData
+        ? JSON.parse(localStorageData)
+        : null;
 
-      if (localStorageData) {
-        const a = JSON.parse(localStorageData);
-        a.forEach((element: IState) => {
-          return (element.date = dayjs(element.date));
+      if (updatedStateByLocalStore && updatedStateByLocalStore.length) {
+        updatedStateByLocalStore.forEach((element: IState) => {
+          element.date = dayjs(element.date);
         });
-        return a;
+        return updatedStateByLocalStore;
       }
       return state;
     },
@@ -39,6 +41,14 @@ export const eventsSlice = createSlice({
         ],
       };
       state.push(listDateItem);
+      localStorage.setItem("events", JSON.stringify(state));
+    },
+
+    saveDataInLocalStore: (
+      state: IState[],
+      action: PayloadAction<{ events: IState[] }>
+    ) => {
+      localStorage.setItem("events", JSON.stringify(action.payload.events));
     },
 
     updateEventForExistingDate: (
@@ -57,6 +67,7 @@ export const eventsSlice = createSlice({
         };
 
         state[index].listData.push(listDateItem);
+        localStorage.setItem("events", JSON.stringify(state));
       }
     },
   },
@@ -67,5 +78,6 @@ export const {
   initializeInitialValues,
   addNewDateAndEvent,
   updateEventForExistingDate,
+  saveDataInLocalStore,
 } = actions;
 export default reducer;

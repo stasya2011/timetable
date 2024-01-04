@@ -21,6 +21,7 @@ const TaskInputForm = () => {
     const existingEvent = events.find(
       (event) => event.eventId === formatDate(selectedDate.selectedDate)
     );
+
     if (existingEvent) {
       dispatch(
         updateEventForExistingDate({
@@ -36,8 +37,6 @@ const TaskInputForm = () => {
         })
       );
     }
-
-    // dispatch(setSelectedDate(selectedDate.selectedDate));
     setInputValue("");
   };
 

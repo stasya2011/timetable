@@ -1,7 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-import { useEffect } from "react";
-import { useAppDispatch } from "../../redux/store";
-import { initializeInitialValues } from "../../redux/slice/eventsSlice";
 import ChartComponent from "../ChartComponent";
 import CalendarPage from "../CalendarPage";
 import ErrorPage from "../ErrorPage";
@@ -18,12 +15,6 @@ const chartData = {
   ],
 };
 const MainPage = () => {
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(initializeInitialValues());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <main className={styles.main}>
       <Routes>

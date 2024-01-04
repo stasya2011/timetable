@@ -6,25 +6,25 @@ import { RootState, useAppDispatch } from "../../redux/store";
 import { setSelectedDate } from "../../redux/slice/selectSlice";
 import { formatDate } from "../../utils";
 import TaskList from "../TaskList";
+import { initializeInitialValues } from "../../redux/slice/eventsSlice";
 
 const CalendarComponent = () => {
   const dispatch = useAppDispatch();
   const { events } = useSelector((state: RootState) => state);
 
   useEffect(() => {
-    return () => {
-      localStorage.setItem("events", JSON.stringify(events));
-    };
-  }, [events]);
+    dispatch(initializeInitialValues());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const dateCellRender = (value: Dayjs) => {
     return (
       <>
-        {events.map((event) =>
-          formatDate(event.date) === formatDate(value) ? (
+        {events.map((event) => {
+          return formatDate(event.date) === formatDate(value) ? (
             <TaskList event={event} key={event.date.millisecond()} />
-          ) : null
-        )}
+          ) : null;
+        })}
       </>
     );
   };
