@@ -1,8 +1,47 @@
 .listOfEvents {
   padding-left: 0px;
   margin-top: 0px;
+  list-style: none;
+  border: 3px solid rgba(0, 128, 0, 0.536);
+  background-color: rgba(108, 114, 111, 0.303);
+  box-shadow: 5px 3px 15px 3px rgba(129, 127, 127, 0.53);
+  border-radius: 10px;
+  display: inline-block;
+  padding: 10px;
 
   li {
-    list-style: none;
+    white-space: nowrap;
+    width: 250px;
+    height: 35px;
+    position: relative;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    background-color: rgba(34, 139, 34, 0.295);
+    border-radius: 10px;
+    padding-left: 10px;
+    box-shadow: 0 0 10px 1px rgba(129, 127, 127, 0.53);
+  }
+}
+
+div[class*="ant-picker-calendar-date-content"] {
+  overflow: hidden;
+}
+
+.deleteBtn {
+  position: absolute;
+  right: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+
+  span {
+    text-align: center;
+    vertical-align: middle;
+    color: red;
+    font-weight: 800;
   }
 }

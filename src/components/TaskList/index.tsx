@@ -1,4 +1,4 @@
-import { Badge, BadgeProps } from "antd";
+import { Badge, BadgeProps, Button } from "antd";
 import { IListData, IState } from "../../redux/types";
 import styles from "./taskList.module.scss";
 
@@ -12,6 +12,13 @@ const TaskList = ({ event }: { event: IState }) => {
               status={item.type as BadgeProps["status"]}
               text={item.content}
             />
+            <Button
+              onClick={() => console.log("+++ itemId", item.id)}
+              shape="circle"
+              className={styles.deleteBtn}
+            >
+              &#10007;
+            </Button>
           </li>
         );
       })}

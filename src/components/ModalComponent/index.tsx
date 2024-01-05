@@ -17,7 +17,7 @@ const ModalComponent = ({
   const { events, selectedDate } = useSelector((state: RootState) => state);
 
   return (
-    <Modal open={isOpen} onOk={onOk} onCancel={onCancel}>
+    <Modal open={isOpen} onOk={onOk} onCancel={onCancel} width={1000}>
       <TaskInputForm />
 
       <>
