@@ -1,8 +1,20 @@
 import { Badge, BadgeProps, Button } from "antd";
 import { IListData, IState } from "../../redux/types";
+import { useAppDispatch } from "../../redux/store";
+import { deleteItem, deleteEvent } from "../../redux/slice/eventsSlice";
 import styles from "./taskList.module.scss";
 
 const TaskList = ({ event }: { event: IState }) => {
+  const dispatch = useAppDispatch();
+
+  const deleteItemFromList = (item: IListData) => {
+    if (event.listData.length) {
+      dispatch(deleteItem({ eventId: event.eventId, itemId: item.id }));
+    }
+
+    dispatch(deleteEvent({ eventId: event.eventId }));
+  };
+
   return (
     <ul className={styles["listOfEvents"]}>
       {event.listData.map((item: IListData) => {
@@ -13,7 +25,9 @@ const TaskList = ({ event }: { event: IState }) => {
               text={item.content}
             />
             <Button
-              onClick={() => console.log("+++ itemId", item.id)}
+              onClick={() => {
+                deleteItemFromList(item);
+              }}
               shape="circle"
               className={styles.deleteBtn}
             >

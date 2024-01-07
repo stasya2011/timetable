@@ -9,6 +9,40 @@ export const eventsSlice = createSlice({
   name: "event",
   initialState,
   reducers: {
+    deleteEvent: (
+      state: IState[],
+      action: PayloadAction<{ eventId: string }>
+    ) => {
+      const index = state.findIndex(
+        (event) => event.eventId === action.payload.eventId
+      );
+
+      if (index > -1 && state[index].listData.length === 0) {
+        state.forEach((event, index) => {
+          if (event.eventId === action.payload.eventId) {
+            state.splice(index, 1);
+            return;
+          }
+        });
+      }
+      localStorage.setItem("events", JSON.stringify(state));
+    },
+
+    deleteItem: (
+      state: IState[],
+      action: PayloadAction<{ eventId: string; itemId: string }>
+    ) => {
+      const index = state.findIndex(
+        (event) => event.eventId === action.payload.eventId
+      );
+
+      if (index > -1) {
+        state[index].listData = state[index].listData.filter(
+          (item) => item.id !== action.payload.itemId
+        );
+      }
+    },
+
     initializeInitialValues: (state: IState[]) => {
       const localStorageData = localStorage.getItem("events");
       const updatedStateByLocalStore = localStorageData
@@ -65,7 +99,6 @@ export const eventsSlice = createSlice({
           content: action.payload.input,
           id,
         };
-
         state[index].listData.push(listDateItem);
         localStorage.setItem("events", JSON.stringify(state));
       }
@@ -79,5 +112,7 @@ export const {
   addNewDateAndEvent,
   updateEventForExistingDate,
   saveDataInLocalStore,
+  deleteItem,
+  deleteEvent,
 } = actions;
 export default reducer;

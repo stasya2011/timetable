@@ -6,6 +6,7 @@ const ChartComponent = ({ data }: { data: any }) => {
 
   useEffect(() => {
     const ctx = chartRef.current ? chartRef.current.getContext("2d") : null;
+
     if (ctx) {
       const myChart = new Chart(ctx, {
         type: "pie",
