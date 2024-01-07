@@ -1,0 +1,21 @@
+div[class*="ant-picker-calendar-date-content"] {
+  overflow: hidden;
+}
+
+.deleteBtn {
+  position: absolute;
+  right: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+
+  span {
+    text-align: center;
+    vertical-align: middle;
+    color: red;
+    font-weight: 800;
+  }
+}
