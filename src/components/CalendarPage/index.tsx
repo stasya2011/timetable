@@ -1,18 +1,22 @@
-import { useState } from "react";
 import { Button } from "antd";
 import ModalComponent from "../ModalComponent";
 import CalendarComponent from "../Calendar";
+import { RootState, useAppDispatch } from "../../redux/store";
+import { useSelector } from "react-redux";
+import { openModal, closeModal } from "../../redux/slice/modalSlice";
 
 const CalendarPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  //const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isModalOpen } = useSelector((state: RootState) => state.modalWindow);
+  const dispatch = useAppDispatch();
   const showModal = () => {
-    setIsModalOpen(true);
+    dispatch(openModal());
   };
   const handleOk = () => {
-    setIsModalOpen(false);
+    dispatch(closeModal());
   };
   const handleCancel = () => {
-    setIsModalOpen(false);
+    dispatch(closeModal());
   };
 
   return (

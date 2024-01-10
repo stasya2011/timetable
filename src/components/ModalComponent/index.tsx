@@ -19,7 +19,6 @@ const ModalComponent = ({
   return (
     <Modal open={isOpen} onOk={onOk} onCancel={onCancel} width={1000}>
       <TaskInputForm />
-
       <>
         {events.map((event) => {
           if (event.eventId === formatDate(selectedDate.selectedDate)) {

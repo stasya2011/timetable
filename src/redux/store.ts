@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import events from "./slice/eventsSlice";
 import selectedDate from "./slice/selectSlice";
+import modalWindow from "./slice/modalSlice";
 import { useDispatch } from "react-redux";
 
 export const store = configureStore({
-  reducer: { events, selectedDate },
+  reducer: { events, selectedDate, modalWindow },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
