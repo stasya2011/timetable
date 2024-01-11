@@ -2,13 +2,23 @@ div[class*="ant-picker-calendar-date-content"] {
   overflow: hidden;
 }
 
-.deleteBtn {
+.wrapper {
   position: absolute;
-  right: 0;
-  padding: 0;
+  right: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  select {
+    background-color: salmon;
+  }
+}
+
+.deleteBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
   border: none;
   background-color: transparent;
 
@@ -17,5 +27,15 @@ div[class*="ant-picker-calendar-date-content"] {
     vertical-align: middle;
     color: red;
     font-weight: 800;
+  }
+}
+
+.selectors {
+  & > div {
+    background-color: transparent !important;
+  }
+
+  div[class*="ant-select-selector"] {
+    background-color: transparent !important;
   }
 }
