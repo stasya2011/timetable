@@ -41,7 +41,7 @@ const TaskItem = ({ item, event }: { item: IListData; event: IState }) => {
 
         <Select
           className={styles.selectors}
-          defaultValue="success"
+          defaultValue={item.type}
           style={{ width: 80 }}
           onChange={(e) => handleChange(e, item.id)}
           options={[
