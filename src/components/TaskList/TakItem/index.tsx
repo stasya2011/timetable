@@ -1,7 +1,11 @@
-import { Badge, BadgeProps, Button, Select, Space } from "antd";
+import { Badge, BadgeProps, Button, Select } from "antd";
 import { IListData, IState } from "../../../redux/types";
 import { useAppDispatch } from "../../../redux/store";
-import { deleteEvent, deleteItem } from "../../../redux/slice/eventsSlice";
+import {
+  deleteEvent,
+  deleteItem,
+  toggleStatus,
+} from "../../../redux/slice/eventsSlice";
 import styles from "./taskItem.module.scss";
 
 const TaskItem = ({ item, event }: { item: IListData; event: IState }) => {
@@ -15,8 +19,10 @@ const TaskItem = ({ item, event }: { item: IListData; event: IState }) => {
     dispatch(deleteEvent({ eventId: event.eventId }));
   };
 
-  const handleChange = (value: string) => {
-    console.log(`+++ selected ${value}`);
+  const handleChange = (value: string, id: string) => {
+    dispatch(
+      toggleStatus({ status: value, eventId: event.eventId, itemId: id })
+    );
   };
 
   return (
@@ -37,7 +43,7 @@ const TaskItem = ({ item, event }: { item: IListData; event: IState }) => {
           className={styles.selectors}
           defaultValue="success"
           style={{ width: 80 }}
-          onChange={handleChange}
+          onChange={(e) => handleChange(e, item.id)}
           options={[
             { value: "success", label: "success" },
             { value: "processing", label: "processing" },

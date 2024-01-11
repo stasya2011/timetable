@@ -103,6 +103,22 @@ export const eventsSlice = createSlice({
         localStorage.setItem("events", JSON.stringify(state));
       }
     },
+
+    toggleStatus: (
+      state: IState[],
+      action: PayloadAction<{ status: string; eventId: string; itemId: string }>
+    ) => {
+      const index = state.findIndex(
+        (event) => event.eventId === action.payload.eventId
+      );
+      state[index].listData.forEach((task) => {
+        if (task.id === action.payload.itemId) {
+          task.type = action.payload.status;
+          localStorage.setItem("events", JSON.stringify(state));
+          return;
+        }
+      });
+    },
   },
 });
 
@@ -114,5 +130,6 @@ export const {
   saveDataInLocalStore,
   deleteItem,
   deleteEvent,
+  toggleStatus,
 } = actions;
 export default reducer;
