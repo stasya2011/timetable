@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../redux/store";
 import { setSelectedDate } from "../../redux/slice/selectSlice";
 import { formatDate } from "../../utils";
-import TaskList from "../TaskList";
 import { initializeInitialValues } from "../../redux/slice/eventsSlice";
+import TaskList from "../TaskList";
 
 const CalendarComponent = () => {
   const dispatch = useAppDispatch();
