@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { RootState } from "../redux/store";
+import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
 import { useMediaQuery } from "@uidotdev/usehooks";
+import TaskListVisualization from "./TaskListVisualization";
 import Chart from "chart.js/auto";
+import styles from "./chartComponent.module.scss";
 
 const ChartComponent = () => {
-  const isMobile = useMediaQuery("only screen and (max-width : 768px)");
-  const isDesktop = useMediaQuery(
-    "only screen and (min-width : 769px) and (max-width : 1200px)"
+  const isMobile = useMediaQuery(
+    "only screen and(min-width: 300px) and (max-width : 768px)"
   );
   const [screenWidth, setCanvasWidth] = useState(isMobile ? 300 : 500);
   const chartRef = useRef<HTMLCanvasElement | null>(null);
@@ -29,12 +30,13 @@ const ChartComponent = () => {
   }, [chartReducer]);
 
   useEffect(() => {
-    setCanvasWidth(() => (isDesktop ? 500 : 300));
-  }, [isDesktop]);
+    setCanvasWidth(() => (isMobile ? 300 : 500));
+  }, [isMobile]);
 
   return (
-    <div style={{ width: screenWidth }}>
-      <canvas style={{ width: screenWidth }} ref={chartRef} />
+    <div className={styles.wrapper}>
+      <canvas width={screenWidth} ref={chartRef} />
+      <TaskListVisualization chartReducer={chartReducer} />
     </div>
   );
 };

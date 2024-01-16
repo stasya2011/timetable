@@ -1,21 +1,14 @@
 import { Calendar, CalendarProps } from "antd";
 import { Dayjs } from "dayjs";
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../redux/store";
 import { setSelectedDate } from "../../redux/slice/selectSlice";
 import { formatDate } from "../../utils";
-import { initializeInitialValues } from "../../redux/slice/eventsSlice";
 import TaskList from "../TaskList";
 
 const CalendarComponent = () => {
   const dispatch = useAppDispatch();
   const { events } = useSelector((state: RootState) => state);
-
-  useEffect(() => {
-    dispatch(initializeInitialValues());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const dateCellRender = (value: Dayjs) => {
     return (
