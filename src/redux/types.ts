@@ -14,7 +14,7 @@ export interface IState {
 
 export enum STATUS {
   TODO = "Todo",
-  PROCESSING = "Processing",
+  PROGRESS = "Progress",
   DONE = "Done",
 }
 
@@ -27,7 +27,7 @@ export interface IChartElement {
 export interface IDataset {
   todo: IChartElement[];
   done: IChartElement[];
-  proccess: IChartElement[];
+  progress: IChartElement[];
 }
 
 export interface IChart {

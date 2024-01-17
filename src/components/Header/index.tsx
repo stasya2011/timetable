@@ -18,7 +18,7 @@ const HeaderComponent = () => {
           link.isActive ? styles.activeLink : styles.defaultLink
         }
       >
-        Diagram
+        Task's Chart
       </NavLink>
     </div>
   );

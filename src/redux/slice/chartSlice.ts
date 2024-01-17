@@ -2,13 +2,13 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { STATUS, IChart, IDataset } from "../types";
 
 const initialState: IChart = {
-  data: { todo: [], done: [], proccess: [] },
-  labels: [STATUS.TODO, STATUS.PROCESSING, STATUS.DONE],
+  data: { todo: [], done: [], progress: [] },
+  labels: [STATUS.TODO, STATUS.PROGRESS, STATUS.DONE],
   datasets: [
     {
       label: "Month",
       data: [10, 50, 40],
-      backgroundColor: ["green", "red", "grey"],
+      backgroundColor: ["green", "blue", "grey"],
     },
   ],
 };
@@ -20,7 +20,7 @@ const chartSlice = createSlice({
       state.data = action.payload;
       state.datasets[0].data = [
         action.payload.todo.length,
-        action.payload.proccess.length,
+        action.payload.progress.length,
         action.payload.done.length,
       ];
     },

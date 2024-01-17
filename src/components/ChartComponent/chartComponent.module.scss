@@ -5,3 +5,41 @@
   align-items: center;
   margin: 0 auto;
 }
+
+.list {
+  padding-left: 0;
+  box-shadow: 0 0 15px 3px rgba(129, 127, 127, 0.53);
+  width: 200px;
+  margin: 10px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.list-item {
+  margin-left: 20px;
+}
+
+.toDoStatus {
+  border: 3px solid rgba(0, 128, 0, 0.536);
+  background-color: rgba(0, 128, 0, 0.301);
+}
+
+.processingStatus {
+  border: 3px solid rgba(26, 128, 206, 0.536);
+  background-color: rgba(26, 128, 206, 0.332);
+}
+
+.doneStatus {
+  border: 3px solid rgba(77, 80, 82, 0.536);
+  background-color: rgba(77, 80, 82, 0.311);
+}
+
+.taskListVisualization {
+  display: flex;
+}
+
+@media screen and (max-width: 767px) {
+  .taskListVisualization {
+    flex-direction: column;
+  }
+}

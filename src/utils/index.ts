@@ -4,7 +4,7 @@ import { IDataset, IState } from "../redux/types";
 export const formatDate = (date: Dayjs) => date.format("DD-MM-YYYY");
 
 export const sortEventsByStatus = (events: IState[]) => {
-  const dataForG: IDataset = { todo: [], proccess: [], done: [] };
+  const dataForG: IDataset = { todo: [], progress: [], done: [] };
   events.forEach((event: IState) => {
     event.listData.forEach((element) => {
       switch (element.type) {
@@ -12,7 +12,7 @@ export const sortEventsByStatus = (events: IState[]) => {
           dataForG.todo.push(element);
           break;
         case "processing":
-          dataForG.proccess.push(element);
+          dataForG.progress.push(element);
           break;
         case "default":
           dataForG.done.push(element);
