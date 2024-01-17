@@ -17,5 +17,15 @@
 
   .date {
     margin-right: 30px;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(53, 51, 51, 0.916);
+  }
+
+  @media screen and (max-width: 767px) {
+    .date {
+      margin-right: 20px;
+      font-size: 12px;
+      text-align: center;
+    }
   }
 }

@@ -42,7 +42,7 @@ const TaskInputForm = () => {
 
   return (
     <div className={styles.wrapper}>
-      <div>
+      <div style={{ display: "flex" }}>
         <input
           type="text"
           placeholder="Add event."
