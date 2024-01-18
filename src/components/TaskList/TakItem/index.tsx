@@ -45,9 +45,9 @@ const TaskItem = ({ item, event }: { item: IListData; event: IState }) => {
           style={{ width: 80 }}
           onChange={(e) => handleChange(e, item.id)}
           options={[
-            { value: "success", label: "success" },
-            { value: "processing", label: "processing" },
-            { value: "default", label: "default" },
+            { value: "success", label: "todo" },
+            { value: "processing", label: "in progress" },
+            { value: "default", label: "done" },
           ]}
         />
       </div>
