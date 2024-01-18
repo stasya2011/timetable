@@ -22,8 +22,11 @@
   }
 
   @media screen and (max-width: 767px) {
+    flex-direction: column;
+
     .date {
       margin-right: 20px;
+      margin-top: 10px;
       font-size: 12px;
       text-align: center;
     }

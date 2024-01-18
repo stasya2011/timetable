@@ -15,6 +15,15 @@
   }
 }
 
+@media screen and (max-width: 400px) {
+  .listOfEventsWindowOpen,
+  .listOfEvents {
+    li {
+      width: unset;
+    }
+  }
+}
+
 .listOfEventsWindowOpen {
   margin-right: 10px;
 

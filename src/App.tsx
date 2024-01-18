@@ -20,11 +20,18 @@ const App = () => {
       <Router>
         <Layout
           style={{
-            width: isMobile ? 350 : 800,
+            minWidth: isMobile ? 250 : 800,
+            maxWidth: isMobile ? 350 : 800,
           }}
           className={styles.layout}
         >
-          <Header style={{ display: "flex", alignItems: "center" }}>
+          <Header
+            style={{
+              display: "flex",
+              alignItems: "center",
+              paddingLeft: 10,
+            }}
+          >
             <HeaderComponent />
           </Header>
 
